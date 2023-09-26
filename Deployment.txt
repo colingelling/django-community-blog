@@ -1,0 +1,37 @@
+Deploying a Django web-app and web server:
+
+1. Activate Python environment:
+source /root/.local/share/venv/bin/activate
+
+2. When creating a new project, execute:
+django-admin startproject "project_name here"
+
+3. When working with a localhost domain, put it in the /etc/hosts file
+
+4. Add the localhost domain to the ALLOWED_HOSTS within project/settings.py:
+
+ALLOWED_HOSTS = []
+
+5. Prepare the Nginx configuration file by default:
+
+server {
+    listen 80;
+    server_name domain.name;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_redirect off;
+    }
+}
+
+5. Restart Nginx or the whole server (Repeat step 1 and continue to 6)
+
+6. Start the Gunicorn web server (This is because of the local development using a Docker server):
+gunicorn --bind "0.0.0.0:8000" project_name.wsgi
+
+PS: Check first by doing the migrations and starting the local development server of Django
+
+python manage.py migrate
+python manage.py runserver (Normally you would use this for local development)
