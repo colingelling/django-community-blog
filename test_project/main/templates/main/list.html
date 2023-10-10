@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Todo list
+{% endblock %}
+
+{% block content %}
+    <h1>{{ todo_list.name }}</h1>
+    <ul>
+        {% for item in todo_list.item_set.all %}
+            {% if item.complete == False %}
+                <li>{{ item.text }} - INCOMPLETE</li>
+            {% else %}
+                <li>{{ item.text }} - COMPLETE</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+
+{%  block title %}
+    Create new list
+{%  endblock %}
+
+{%  block content %}
+    <h1>Create page</h1>
+    <form method="post" action="/create/">
+    {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" name="save">Submit</button>
+    </form>
+{%  endblock %}
