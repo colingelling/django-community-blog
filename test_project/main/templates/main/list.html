@@ -7,20 +7,31 @@
 {% block content %}
     <h1>{{ todo_list.name }}</h1>
     <form method="post" action="">
-    {% csrf_token %}
-        <ul>
-            {% for item in todo_list.item_set.all %}
-                {% if item.complete == True %}
-                    <li><input type="checkbox" value="clicked" name="c{{ item.id }}" checked>{{ item.text }}</li>
-                {% else %}
-                    <li><input type="checkbox" value="clicked" name="c{{ item.id }}">{{ item.text }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        {% csrf_token %}
 
-    <button type="submit" name="save" value="Save">Save</button>
+        {% for item in todo_list.item_set.all %}
+           <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" style="padding: 1.375rem 0.75rem;">
+                        {% if item.complete == True %}
+                            <input type="checkbox" value="clicked" name="c{{ item.id }}" checked>
+                        {% else %}
+                            <input type="checkbox" value="clicked" name="c{{ item.id }}">
+                        {% endif %}
+                    </div>
+                </div>
 
-    <input type="text" name="new">
-    <button type="submit" name="newItem" value="newItem">Add item</button>
+                <input type="text" value="{{ item.text }}" class="form-control">
+           </div>
+        {% endfor %}
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add item</button>
+            </div>
+            <input type="text" name="new">
+        </div>
+
+        <button type="submit" name="save" value="Save" class="btn btn-success">Save</button>
     </form>
 {% endblock %}

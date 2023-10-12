@@ -5,10 +5,14 @@
 {%  endblock %}
 
 {%  block content %}
-    <h1>Create page</h1>
-    <form method="post" action="/create/">
-    {{ form.as_p }}
+    <h3>Create page</h3>
+    <form method="post" action="/create/" class="form-group">
         {% csrf_token %}
-        <button type="submit" name="save">Submit</button>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="submit" name="save" class="btn btn-success">Create new</button>
+            </div>
+            {{ form.name }}
+        </div>
     </form>
 {%  endblock %}
