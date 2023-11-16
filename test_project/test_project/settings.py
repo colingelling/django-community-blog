@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-!$xrjiw(m*&y*o#f0eb17_h1qt(3m=hd1swb!w17@a4n+87i=!
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "0.0.0.0",
     "django-community-blog.test"
 ]
 
@@ -39,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +130,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
