@@ -4,15 +4,20 @@
     Create new list
 {%  endblock %}
 
+
 {%  block content %}
-    <h3>Create page</h3>
-    <form method="post" action="/create/" class="form-group">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <button type="submit" name="save" class="btn btn-success">Create new</button>
+    {% if user.is_authenticated %}
+        <h3>Create page</h3>
+        <form method="post" action="/create/" class="form-group">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="submit" name="save" class="btn btn-success">Create new</button>
+                </div>
+                {{ form.name }}
             </div>
-            {{ form.name }}
-        </div>
-    </form>
+        </form>
+    {% else %}
+        <p>Sorry, this page has been restricted to users only. You can login <a href="/login">here</a>.</p>
+    {% endif %}
 {%  endblock %}

@@ -5,33 +5,37 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ todo_list.name }}</h1>
-    <form method="post" action="">
-        {% csrf_token %}
+    {% if user.is_authenticated %}
+        <h1>{{ todo_list.name }}</h1>
+        <form method="post" action="">
+            {% csrf_token %}
 
-        {% for item in todo_list.item_set.all %}
-           <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <div class="input-group-text" style="padding: 1.375rem 0.75rem;">
-                        {% if item.complete == True %}
-                            <input type="checkbox" value="clicked" name="c{{ item.id }}" checked>
-                        {% else %}
-                            <input type="checkbox" value="clicked" name="c{{ item.id }}">
-                        {% endif %}
+            {% for item in todo_list.item_set.all %}
+               <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="padding: 1.375rem 0.75rem;">
+                            {% if item.complete == True %}
+                                <input type="checkbox" value="clicked" name="c{{ item.id }}" checked>
+                            {% else %}
+                                <input type="checkbox" value="clicked" name="c{{ item.id }}">
+                            {% endif %}
+                        </div>
                     </div>
+
+                    <input type="text" value="{{ item.text }}" class="form-control">
+               </div>
+            {% endfor %}
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add item</button>
                 </div>
-
-                <input type="text" value="{{ item.text }}" class="form-control">
-           </div>
-        {% endfor %}
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add item</button>
+                <input type="text" name="new">
             </div>
-            <input type="text" name="new">
-        </div>
 
-        <button type="submit" name="save" value="Save" class="btn btn-success">Save</button>
-    </form>
+            <button type="submit" name="save" value="Save" class="btn btn-success">Save</button>
+        </form>
+    {% else %}
+        <p>Sorry, this page has been restricted to users only. You can login <a href="/login">here</a>.</p>
+    {% endif %}
 {% endblock %}
